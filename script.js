@@ -30,11 +30,13 @@ const getWeather = async function (city) {
       throw new Error("Country not found");
     }
     const data = await weather.json();
-    const flag = await fetch(
-      `https://countryflagsapi.com/svg/${data.location.country}`
-    );
-    //setting flag
-    $(".flag").attr("src", `${flag.url}`);
+    try {
+      const flag = await fetch(
+        `https://countryflagsapi.com/svg/${data.location.country}`
+      );
+      //setting flag
+      $(".flag").attr("src", `${flag.url}`);
+    } catch (error) {}
     $(".card").removeClass("hidden");
     //setting weather information
     $(".country-name").text(`${data.location.country} | ${data.location.name}`);
